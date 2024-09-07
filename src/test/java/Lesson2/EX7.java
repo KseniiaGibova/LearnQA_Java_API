@@ -17,7 +17,7 @@ public class EX7 {
     public void address() {
         String url = "https://playground.learnqa.ru/api/long_redirect";
         int code = 301;
-        int cycle = 1;
+        int cycle = 0;
         while (code == 301) {
             Response response = RestAssured
                     .given()
@@ -28,11 +28,13 @@ public class EX7 {
                     .andReturn();
             code = response.getStatusCode();
             url = response.getHeader("Location");
+            ++cycle;
 
                System.out.println("Цикл "+cycle);
                System.out.println("URL for redirection: "+url);
                System.out.println("http code: "+ code);
-            cycle++;
+
         }
+        System.out.println("Количество редиректов: "+ cycle);
     }
 }
