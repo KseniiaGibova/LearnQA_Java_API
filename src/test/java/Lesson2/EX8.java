@@ -5,7 +5,7 @@ import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.Test;
 import static java.lang.Thread.sleep;
 
-public class EX8copy {
+public class EX8 {
 
     String token;
     int seconds;
