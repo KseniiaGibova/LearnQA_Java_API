@@ -29,6 +29,7 @@ public class Ex12 {
         assertTrue(headers.hasHeaderWithName("Content-Type"), "Content-Type is not defined - no header 'Content-Type'");
         assertEquals(contentType, "application/json", "Content-Type must be 'application/json'");
         assertNotEquals("close" ,connect, "Connection must be 'keep-alive!'");
+        assertFalse(headers.hasHeaderWithName("Something"), "Wrong header 'Something'");
 
     }
 
