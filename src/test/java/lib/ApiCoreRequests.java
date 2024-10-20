@@ -75,7 +75,7 @@ public class ApiCoreRequests {
     }
 
     @Step ("POST: Ex15-4 request with too long firstName")
-    public Response postRequestTooManySignsFirstName(String url, Map<String, String> data){
+    public Response postRequestTooManySignsFirstName(String url, Map<String, String> data) {
         return given()
                 .filter(new AllureRestAssured())
                 .body(data)
@@ -83,16 +83,22 @@ public class ApiCoreRequests {
                 .andReturn();
     }
 
-    @Step ("Ex16: user_id 3 Authorization with user_id 2 credentials")
-    public Response postRequestUser2Authorization(String url, Map<String, String> data){ //or String token?
+    @Step("Ex16 step1: acquiring user_id 2 credentials")
+    public Response makePostRequest_user2(String url, Map<String, String> data) {
         return given()
                 .filter(new AllureRestAssured())
                 .body(data)
-                .put(url)
+                .post(url)
                 .andReturn();
     }
 
-
-
-
+    @Step("Ex16 step2: user_id 3 Authorization with user_id 2 credentials")
+    public Response getRequestUser2Authorization(String url, String token, String cookie) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .get(url)
+                .andReturn();
+    }
 }

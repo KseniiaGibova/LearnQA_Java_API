@@ -1,4 +1,5 @@
 package tests;
+import io.qameta.allure.Description;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
@@ -37,8 +38,8 @@ public class UserGetTest extends BaseTestCase {
             .post("https://playground.learnqa.ru/api/user/login")
             .andReturn();
 
-    String header = this.getHeader(responseGetAuth, "x-csrf-token");
-    String cookie = this.getCookie(responseGetAuth, "auth_sid");
+   String header = this.getHeader(responseGetAuth, "x-csrf-token");
+   String cookie = this.getCookie(responseGetAuth, "auth_sid");
 //Получили первым запросом токен и куки, пошли делать второй запрос
 
     Response responseUserData = RestAssured
@@ -53,30 +54,27 @@ public class UserGetTest extends BaseTestCase {
     Assertions.assertJsonHasFields(responseUserData, expectedFields);
     }
 
-    //Ex16
+
+    String cookie;
+    String header;
     @Test
+    @Description("Ex16 Negative: попытка авторизоваться под пользователем 3 с кредами пользователя 2")
     public void testGetUserDetailsAuthAsOtherUser() {
-        Map<String, String> authData = new HashMap<>();
-        authData.put("email", "vinkotov@example.com");
-        authData.put("password", "1234");
+        Map<String, String> data = new HashMap<>();
+        data.put("email", "vinkotov@example.com");
+        data.put("password", "1234");
 
-        Response responseGetAuth = RestAssured
-                .given()
-                .body(authData)
-                .post("https://playground.learnqa.ru/api/user/login")
-                .andReturn();
+        Response responseGetAuth = apiCoreRequests.makePostRequest_user2(
+                "https://playground.learnqa.ru/api/user/login", data);
 
-        String header = this.getHeader(responseGetAuth, "x-csrf-token");
-        String cookie = this.getCookie(responseGetAuth, "auth_sid");
+        this.header = this.getHeader(responseGetAuth, "x-csrf-token");
+        this.cookie = this.getCookie(responseGetAuth, "auth_sid");
 // Получили первым запросом токен и куки юзера с id=2,
 // с ними пытаемся авторизоваться и получить данные юзера с id=3
 
-        Response responseUserData = RestAssured
-                .given()
-                .header("x-csrf-token", header)
-                .cookie("auth_sid", cookie)
-                .get("https://playground.learnqa.ru/api/user/3")
-                .andReturn();
+        Response responseUserData = apiCoreRequests.getRequestUser2Authorization(
+                "https://playground.learnqa.ru/api/user/3", this.header, this.cookie);
+
         System.out.println(responseUserData.asString());
 //проверка наличия полей в авторизованном запросе - долженн прийти только username
         Assertions.assertJsonHasField(responseUserData, "username");
