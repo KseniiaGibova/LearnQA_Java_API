@@ -47,7 +47,7 @@ public class ApiCoreRequests {
                 .andReturn();
     }
 
-    @Step ("Ex15-1 Email without @")
+    @Step ("POST: Ex15-1 Email without @")
     public Response postRequestEmailWithoutAt(String url, Map<String, String> data){
         return given()
                 .filter(new AllureRestAssured())
@@ -56,7 +56,7 @@ public class ApiCoreRequests {
                 .andReturn();
     }
 
-    @Step ("Ex15-2 POST request with empty field")
+    @Step ("POST: Ex15-2 request with empty field")
     public Response postRequestWithEmptyField(String url, Map<String, String> data){
         return given()
                 .filter(new AllureRestAssured())
@@ -65,7 +65,7 @@ public class ApiCoreRequests {
                 .andReturn();
     }
 
-    @Step ("Ex15-3 Too short firstName")
+    @Step ("POST: Ex15-3 request with too short firstName")
     public Response postRequestOneSignFirstName(String url, Map<String, String> data){
         return given()
                 .filter(new AllureRestAssured())
@@ -74,7 +74,7 @@ public class ApiCoreRequests {
                 .andReturn();
     }
 
-    @Step ("Ex15-4 Too long firstName")
+    @Step ("POST: Ex15-4 request with too long firstName")
     public Response postRequestTooManySignsFirstName(String url, Map<String, String> data){
         return given()
                 .filter(new AllureRestAssured())
@@ -84,11 +84,15 @@ public class ApiCoreRequests {
     }
 
     @Step ("Ex16: user_id 3 Authorization with user_id 2 credentials")
-    public Response postRequestUser2Authorization(String url, Map<String, String> data){
+    public Response postRequestUser2Authorization(String url, Map<String, String> data){ //or String token?
         return given()
                 .filter(new AllureRestAssured())
                 .body(data)
-                .post(url)
+                .put(url)
                 .andReturn();
     }
+
+
+
+
 }
