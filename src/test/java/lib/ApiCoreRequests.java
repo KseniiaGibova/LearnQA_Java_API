@@ -82,4 +82,13 @@ public class ApiCoreRequests {
                 .post(url)
                 .andReturn();
     }
+
+    @Step ("Ex16: user_id 3 Authorization with user_id 2 credentials")
+    public Response postRequestUser2Authorization(String url, Map<String, String> data){
+        return given()
+                .filter(new AllureRestAssured())
+                .body(data)
+                .post(url)
+                .andReturn();
+    }
 }
