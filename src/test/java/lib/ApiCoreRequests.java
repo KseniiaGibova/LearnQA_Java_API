@@ -101,4 +101,73 @@ public class ApiCoreRequests {
                 .get(url)
                 .andReturn();
     }
+
+    @Step ("Ex17 - login new user")
+    public Response postRequestNewUserLogin(String url, Map<String, String> data){
+        return given()
+                .filter(new AllureRestAssured())
+                .body(data)
+                .post(url)
+                .andReturn();
+    }
+    @Step ("Ex17-1 - PUT Unauthorized")
+    public Response putUnathorized(String url, Map<String, String> data) {
+        return given()
+                .filter(new AllureRestAssured())
+                .body(data)
+                .put(url)
+                .andReturn();
+    }
+    @Step("Ex17 - GET request with token and auth cookie - user data check")
+    public Response getRequestUserDataCheck(String url, String token, String cookie) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .get(url)
+                .andReturn();
+    }
+
+    @Step ("Ex17-2 PUT Authorized another user")
+    public Response putAuthorizedAnotherUser(String url, String token, String cookie, Map<String, String> data) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .body(data)
+                .put(url)
+                .andReturn();
+    }
+    @Step("Ex17-2-3 Data check")
+    public Response getRequestCheckData(String url, String token, String cookie) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .get(url)
+                .andReturn();
+    }
+
+    @Step ("Ex17-3 PUT email")
+    public Response putAuthorizedUser(String url, String token, String cookie, Map<String, String> data) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .body(data)
+                .put(url)
+                .andReturn();
+    }
+
+    @Step ("Ex17-4 PUT firstName")
+    public Response putAuthorizedUserWrongName(String url, String token, String cookie, Map<String, String> data) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .body(data)
+                .put(url)
+                .andReturn();
+    }
+
 }
