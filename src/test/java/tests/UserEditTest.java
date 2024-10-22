@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class UserEditTest extends BaseTestCase {
@@ -150,10 +151,13 @@ public class UserEditTest extends BaseTestCase {
         String newName = "Kapibara";
         Map<String, String> editData = new HashMap<>();
         editData.put("firstName", newName);
-        userId = userId - 1;
-
+     //   userId = userId - 1;
+//С кредами данного юзера попытаюсь изменить пользователя 23. Проверим, что userId не равен 23
+        if (userId == 23) {
+            System.out.println("Please choose another userId for negative test!");
+        }
         Response responseEditUser = apiCoreRequests.putAuthorizedAnotherUser(
-                "https://playground.learnqa.ru/api/user/" + userId, this.header, this.cookie,
+                "https://playground.learnqa.ru/api/user/23", this.header, this.cookie,
                 editData);
 
         System.out.println(responseEditUser.asString());

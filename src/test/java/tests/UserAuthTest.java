@@ -31,12 +31,12 @@ public class UserAuthTest extends BaseTestCase {
 
      @BeforeEach
      public void loginUser() {
-         Map<String, String> authData = new HashMap<>();
-         authData.put("email", "vinkotov@example.com");
-         authData.put("password", "1234");
+         Map<String, String> data = new HashMap<>();
+         data.put("email", "vinkotov@example.com");
+         data.put("password", "1234");
 
          Response auth = apiCoreRequests
-                 .makePostRequest("https://playground.learnqa.ru/api/user/login", authData);
+                 .makePostRequest("https://playground.learnqa.ru/api/user/login", data);
 
          this.cookie = this.getCookie(auth,"auth_sid");
          this.header = this.getHeader(auth,"x-csrf-token");
@@ -47,7 +47,9 @@ public class UserAuthTest extends BaseTestCase {
        @DisplayName("Test positive auth user")
        public void testAuthUser(){
            Response responseCheckAuth = apiCoreRequests
-                   .makeGetRequest("https://playground.learnqa.ru/api/user/auth", this.header, this.cookie);
+                   .makeGetRequest("https://playground.learnqa.ru/api/user/auth",
+                           this.header,
+                           this.cookie);
 
            Assertions.assertJsonByName(responseCheckAuth, "user_id", this.userIdOnAuth);
                                  }
