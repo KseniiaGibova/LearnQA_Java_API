@@ -170,4 +170,82 @@ public class ApiCoreRequests {
                 .andReturn();
     }
 
+
+    @Step ("Ex18 - login user 2")
+    public Response postLoginUser2(String url, Map<String, String> data){
+        return given()
+                .filter(new AllureRestAssured())
+                .body(data)
+                .post(url)
+                .andReturn();
+    }
+
+    @Step ("Ex18-1-1 delete user with id 2")
+    public Response deleteUser2(String url, String token, String cookie) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .delete(url)
+                .andReturn();
+    }
+
+    @Step("Ex18-1-2 Data check")
+    public Response checkUser2NotDeleted(String url, String token, String cookie) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .get(url)
+                .andReturn();
+    }
+
+    @Step ("Ex18-2-1 login new user")
+    public Response post18NewUserLogin(String url, Map<String, String> data){
+        return given()
+                .filter(new AllureRestAssured())
+                .body(data)
+                .post(url)
+                .andReturn();
+    }
+    @Step ("Ex18-2-2 delete new user")
+    public Response deleteNewUser(String url, String token, String cookie) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .delete(url)
+                .andReturn();
+    }
+
+    @Step("Ex18-2-3 data check - no user")
+    public Response checkNoUser(String url, String token, String cookie) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .get(url)
+                .andReturn();
+    }
+
+    @Step ("Ex18-3-1 login new user")
+    public Response post18_3NewUserLogin(String url, Map<String, String> data){
+        return given()
+                .filter(new AllureRestAssured())
+                .body(data)
+                .post(url)
+                .andReturn();
+    }
+
+
+    @Step ("Ex18-3-2 delete user with id 22")
+    public Response deleteUser22(String url, String token, String cookie) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .delete(url)
+                .andReturn();
+    }
+
 }
