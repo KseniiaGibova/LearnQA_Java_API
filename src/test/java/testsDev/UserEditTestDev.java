@@ -1,6 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
+import io.qameta.allure.*;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -8,9 +8,7 @@ import lib.ApiCoreRequests;
 import lib.Assertions;
 import lib.BaseTestCase;
 import lib.DataGenerator;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,8 +26,12 @@ public class UserEditTestDev extends BaseTestCase {
     String oldMail;
     String email;
 
-
+    @Flaky
+    @Issue("JIRABUG-123")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Link("https://allurereport.org/docs/")
     @Test
+    @Owner("Автотестов Идей Джавович")
     public void testEditJustCreatedTest() {
         //create User
         Map<String, String> data = DataGenerator.getRegistrationData();

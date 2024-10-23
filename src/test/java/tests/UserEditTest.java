@@ -1,6 +1,9 @@
 package tests;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -30,6 +33,11 @@ public class UserEditTest extends BaseTestCase {
 
 
     @Test
+    @Description("Проверка изменения данных только что созданного пользователя, позитивный кейс")
+    @Epic("Positive tests")
+    @Feature("Positive test - modify new user")
+    @Story("JIRA-12345")
+
     public void testEditJustCreatedTest() {
         //create User
         Map<String, String> data = DataGenerator.getRegistrationData();
